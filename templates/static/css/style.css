@@ -1,0 +1,99 @@
+
+body{
+  font-family: "Verdana", Verdana, serif;
+}
+
+button{
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  margin: auto;
+  display: inline;
+}
+
+button:hover{
+  background-color: white;
+  color: black;
+}
+
+#container{
+  background-color: white;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#navigation ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: black;
+}
+
+#navigation li{
+  float: left;
+}
+
+#navigation li a{
+  display: block;
+  color: inherit;
+  background-color: inherit;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#naviation li a:hover{
+  color:inherit;
+  background-color: inherit;
+}
+
+#title{
+  background-color:white;
+  color:black;
+}
+
+#navigation{
+  background-color: white;
+  color: black;
+}
+
+#content{
+  margin: auto;
+  text-align: center;
+  background-color: white;
+  color: black;
+}
+
+#footer{
+  color: white;
+  background-color: black;
+  text-align: center;
+}
+
+#social_links a{
+  color: inherit;
+  background-color: inherit;
+}
+
+#social_links a:hover{
+  color: blue;
+  background-color: blue;
+}
+
+#download_link:hover{
+  color:black;
+}
+
+#content button:hover{
+  color:black;
+}
+
+a:link{
+  color: white;
+}
