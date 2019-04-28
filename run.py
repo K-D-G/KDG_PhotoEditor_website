@@ -34,6 +34,22 @@ def report_bug():
         s=SMTP(host='smtp.mail.me.com', port=587)
         s.starttls()
         s.login(EMAIL_ADDRESS, PASSWORD)
+        msg=MIMEMultipart()
+        msg['From']=EMAIL_ADDRESS
+        msg['To']=email
+        msg['Subject']='Thanks for the bug report!'
+        msg['Body']='Dear {}\nI would like to thank you for your report on the bug you have found. I will reply when the bug has been fixed\nMany thanks,\nKieran Grayshon'.format(request.args.post('name'))
+        s.send_message(msg)
+
+        msg=MIMEMultipart()
+        msg['From']=EMAIL_ADDRESS
+        msg['To']=EMAIL_ADDRESS
+        msg['Subject']='A bug'
+        msg['Body']='A bug report has come in for the KDG_PhotoEditor here it is below:\n{}'.format(software_error)
+        s.send_message(msg)
+
+        s.quit()
+
         return render_template('/static/html/report_thanks.html')
     else:
         return render_template('/static/html/report_bug.html')
