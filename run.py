@@ -1,4 +1,6 @@
 from flask import Flask, render_template, send_file, request, send_from_directory
+from smtplib import SMTP
+from credentials import EMAIL_ADDRESS, PASSWORD
 
 app=Flask(__name__)
 
@@ -22,6 +24,19 @@ def downloads():
 @app.route('/about')
 def about():
     return render_template('/static/html/about.html')
+
+@app.route('/report_bug', methods=["POST"])
+def report_bug():
+    email=request.args.post('email')
+    if email:
+        software_error=request.args.post('software_error')
+        #ICloud server
+        s=SMTP(host='smtp.mail.me.com', port=587)
+        s.starttls()
+        s.login(EMAIL_ADDRESS, PASSWORD)
+        return render_template('/static/html/report_thanks.html')
+    else:
+        return render_template('/static/html/report_bug.html')
 
 @app.route('/static', methods=["GET"])
 def static_serve():
