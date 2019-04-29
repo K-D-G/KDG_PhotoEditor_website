@@ -1,5 +1,7 @@
 from flask import Flask, render_template, send_file, request, send_from_directory
 from smtplib import SMTP
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from credentials import EMAIL_ADDRESS, PASSWORD
 
 app=Flask(__name__)
@@ -25,27 +27,29 @@ def downloads():
 def about():
     return render_template('/static/html/about.html')
 
-@app.route('/report_bug', methods=["POST"])
+@app.route('/report_bug', methods=["GET", "POST"])
 def report_bug():
-    email=request.args.post('email')
+    email=request.form.get('email')
     if email:
-        software_error=request.args.post('software_error')
+        software_error=request.form.get('software_error')
         #ICloud server
-        s=SMTP(host='smtp.mail.me.com', port=587)
+        s=SMTP(host='smtp.gmail.com', port=587)
         s.starttls()
         s.login(EMAIL_ADDRESS, PASSWORD)
         msg=MIMEMultipart()
         msg['From']=EMAIL_ADDRESS
         msg['To']=email
         msg['Subject']='Thanks for the bug report!'
-        msg['Body']='Dear {}\nI would like to thank you for your report on the bug you have found. I will reply when the bug has been fixed\nMany thanks,\nKieran Grayshon'.format(request.args.post('name'))
+        #msg['Body']='Dear {}\nI would like to thank you for your report on the bug you have found. I will reply when the bug has been fixed\nMany thanks,\nKieran Grayshon'.format(request.form.get('name'))
+        msg.attach(MIMEText('Dear {}\nI would like to thank you for your report on the bug you have found. I will reply when the bug has been fixed\nMany thanks,\nKieran Grayshon'.format(request.form.get('name')), 'plain'))
         s.send_message(msg)
 
         msg=MIMEMultipart()
         msg['From']=EMAIL_ADDRESS
         msg['To']=EMAIL_ADDRESS
         msg['Subject']='A bug'
-        msg['Body']='A bug report has come in for the KDG_PhotoEditor here it is below:\n{}'.format(software_error)
+        #msg['Body']='A bug report has come in for the KDG_PhotoEditor here it is below:\n{}'.format(software_error)
+        msg.attach(MIMEText('A bug report has come in for the KDG_PhotoEditor here it is below:\n{}'.format(software_error), 'plain'))
         s.send_message(msg)
 
         s.quit()
