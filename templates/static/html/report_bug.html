@@ -23,7 +23,12 @@
         <h2>Report a bug</h2>
         <p>Fill in the below form to report the bug</p>
         <form method="post" action="/report_bug">
-          <!--Finish the form and then make the report thanks page-->
+          Name:
+          <input type="name" name="name"/>
+          Email:
+          <input type="email" name="email"/>
+          Error description:
+          <textarea name="software_error" rows="8" cols="40"></textarea>
           <input type="submit" value="Submit the bug"/>
         </form>
       </div>
